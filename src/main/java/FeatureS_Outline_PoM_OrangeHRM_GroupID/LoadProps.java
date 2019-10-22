@@ -11,7 +11,7 @@ public class LoadProps
 
     static FileInputStream inputStream;
     //method
-    public String getProperty (String key)
+    public static String getProperty(String key)
     {
         props = new Properties();
         try
