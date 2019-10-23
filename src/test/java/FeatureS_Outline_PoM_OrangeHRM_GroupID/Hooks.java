@@ -17,12 +17,12 @@ import static org.seleniumhq.jetty9.util.IO.copyFile;
 public class Hooks extends BasePage
 {
     BrowserSelector browserSelector = new BrowserSelector();
-    LoadProps loadProps = new LoadProps();
 
     @Before   //take cucumber.api's dependency
-    public void setUpBrowser() {
+    public void setUpBrowser()
+    {
         browserSelector.setUpBrowser();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         getUrl("url");
     }
@@ -48,7 +48,7 @@ public class Hooks extends BasePage
             {
             }
         }
-        //driver.quit();
+        driver.quit();
     }
 
 }

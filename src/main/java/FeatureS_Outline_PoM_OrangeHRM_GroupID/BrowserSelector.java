@@ -14,9 +14,9 @@ import java.net.URL;
 public class BrowserSelector extends Utils
 {
     public static LoadProps loadProps = new LoadProps();
-    public static final String USERNAME = LoadProps.getProperty("SAUCE_USERNAME");
+    public static final String USERNAME = loadProps.getProperty("SAUCE_USERNAME");
     public static final String ACCESS_KEY = loadProps.getProperty("SAUCE_ACCESS_KEY");
-    public static final String URL = "https://"+USERNAME+":"+ACCESS_KEY+"@ondemand.eu-central-1.saucelabs.com:443/wd/hub";
+    public static final String URL = "https://" + USERNAME + ":" + ACCESS_KEY + "@ondemand.eu-central-1.saucelabs.com:443/wd/hub";
 
     public static final boolean SAUCE_LAB = Boolean.parseBoolean(System.getProperty("Sauce"));
     public static final String browser = System.getProperty("browser");
@@ -37,13 +37,10 @@ public class BrowserSelector extends Utils
                 browserOptions.setExperimentalOption("w3c",true);
                 browserOptions.setCapability("platformName","Windows 10");
                 browserOptions.setCapability("browserVersion","77.0");
-                browserOptions.setCapability("sauce:options","sauceOptions");
-                DesiredCapabilities caps = DesiredCapabilities.chrome();
-                //caps.setCapability("platform","Windows 7");
-                //caps.setCapability("version","67.0");
+                browserOptions.setCapability("sauce:options",sauceOptions);
                 try
                 {
-                    driver = new RemoteWebDriver(new URL(URL), caps);
+                    driver = new RemoteWebDriver(new URL(URL), browserOptions);
                 }
                 catch (MalformedURLException e)
                 {
@@ -135,7 +132,6 @@ public class BrowserSelector extends Utils
         }
     }
 }
-
 //    LoadProps loadProps = new LoadProps();
 //
 //    public void setUpBrowser()
