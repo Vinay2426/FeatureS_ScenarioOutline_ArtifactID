@@ -1,4 +1,3 @@
-@all
 Feature: login
   @login
   Scenario: to check valid login functionality

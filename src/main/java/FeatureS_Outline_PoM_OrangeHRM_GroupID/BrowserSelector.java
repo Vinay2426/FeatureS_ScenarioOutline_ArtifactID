@@ -33,14 +33,14 @@ public class BrowserSelector extends Utils
             {
                 MutableCapabilities sauceOptions = new MutableCapabilities();
 
-                ChromeOptions browserOptions = new ChromeOptions();
-                browserOptions.setExperimentalOption("w3c",true);
-                browserOptions.setCapability("platformName","Windows 10");
-                browserOptions.setCapability("browserVersion","77.0");
-                browserOptions.setCapability("sauce:options",sauceOptions);
+                ChromeOptions caps = new ChromeOptions();
+                caps.setExperimentalOption("w3c",true);
+                caps.setCapability("platformName","Windows 10");
+                caps.setCapability("browserVersion","77.0");
+                caps.setCapability("sauce:options",sauceOptions);
                 try
                 {
-                    driver = new RemoteWebDriver(new URL(URL), browserOptions);
+                    driver = new RemoteWebDriver(new URL(URL), caps);
                 }
                 catch (MalformedURLException e)
                 {
