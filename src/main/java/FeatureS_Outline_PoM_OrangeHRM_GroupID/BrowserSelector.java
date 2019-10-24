@@ -4,6 +4,7 @@ import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -79,6 +80,12 @@ public class BrowserSelector extends Utils
             }
             else if(browser.equalsIgnoreCase("Safari"))
             {
+//                MutableCapabilities sauceOptions = new MutableCapabilities();
+//                FirefoxOptions caps = new FirefoxOptions();
+//                caps.setCapability("platformName", "OS X 10.10");
+//                caps.setCapability("browserVersion", "35.0");
+//                caps.setCapability("sauce:options", sauceOptions);
+
                 DesiredCapabilities caps=DesiredCapabilities.safari();
                 caps.setCapability("platform","os x 10.10");
                 caps.setCapability("version","8.0");
