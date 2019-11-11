@@ -44,7 +44,7 @@ public class Hooks extends BasePage
                 copyFile(sourcePath, destinationPath);
                 scenario.embed(((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES), "image/png");
             }
-            catch (IOException e)
+            catch(IOException e)
             {
             }
         }
