@@ -3,11 +3,13 @@ package FeatureS_Outline_PoM_OrangeHRM_GroupID;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.safari.SafariOptions;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -19,8 +21,13 @@ public class BrowserSelector extends Utils
     public static final String ACCESS_KEY = loadProps.getProperty("SAUCE_ACCESS_KEY");
     public static final String URL = "https://" + USERNAME + ":" + ACCESS_KEY + "@ondemand.eu-central-1.saucelabs.com:443/wd/hub";
 
-    public static final boolean SAUCE_LAB = Boolean.parseBoolean(System.getProperty("Sauce"));
-    public static final String browser = System.getProperty("browser");
+    //if you want to run from Run Test Data Configuration
+//    public static final boolean SAUCE_LAB = Boolean.parseBoolean(System.getProperty("Sauce"));
+//    public static final String browser = System.getProperty("browser");
+
+    //if you want to run from TestDataConfig
+    public static final boolean SAUCE_LAB = Boolean.parseBoolean(loadProps.getProperty("Sauce"));
+    public static final String browser = loadProps.getProperty("browser");
 
     public void setUpBrowser()
     {
@@ -39,6 +46,7 @@ public class BrowserSelector extends Utils
                 caps.setCapability("platformName","Windows 10");
                 caps.setCapability("browserVersion","77.0");
                 caps.setCapability("sauce:options",sauceOptions);
+
                 try
                 {
                     driver = new RemoteWebDriver(new URL(URL), caps);
@@ -80,21 +88,52 @@ public class BrowserSelector extends Utils
             }
             else if(browser.equalsIgnoreCase("Safari"))
             {
-//                MutableCapabilities sauceOptions = new MutableCapabilities();
-//                FirefoxOptions caps = new FirefoxOptions();
-//                caps.setCapability("platformName", "OS X 10.10");
-//                caps.setCapability("browserVersion", "35.0");
-//                caps.setCapability("sauce:options", sauceOptions);
 
-                DesiredCapabilities caps=DesiredCapabilities.safari();
+                MutableCapabilities caps = new MutableCapabilities();
+
+                DesiredCapabilities sauceOptions=DesiredCapabilities.safari();
                 caps.setCapability("platform","os x 10.10");
                 caps.setCapability("version","8.0");
+
                 try
                 {
-                    driver = new RemoteWebDriver(new URL(URL), caps);
+                    driver = new RemoteWebDriver(new URL(URL), sauceOptions);
                 }
                 catch (MalformedURLException e)
                 {
+                    e.printStackTrace();
+                }
+            }
+            else if(browser.equalsIgnoreCase("Safari-chrome"))
+            {
+                MutableCapabilities sauceOptions = new MutableCapabilities();
+
+                ChromeOptions browserOptions = new ChromeOptions();
+                browserOptions.setExperimentalOption("w3c", true);
+                browserOptions.setCapability("platformName", "OS X 10.11");
+                browserOptions.setCapability("browserVersion", "77.0");
+                browserOptions.setCapability("sauce:options", sauceOptions);
+                try
+                {
+                    driver = new RemoteWebDriver(new URL(URL), browserOptions);
+                }
+                catch (MalformedURLException e)
+                {
+                    e.printStackTrace();
+                }
+
+            }
+            else if(browser.equalsIgnoreCase("mac-edge")) {
+                MutableCapabilities sauceOptions = new MutableCapabilities();
+
+                EdgeOptions browserOptions = new EdgeOptions();
+                browserOptions.setCapability("platformName", "macOS 10.15");
+                browserOptions.setCapability("browserVersion", "84.0");
+                browserOptions.setCapability("sauce:options", sauceOptions);
+
+                try {
+                    driver = new RemoteWebDriver(new URL(URL), browserOptions);
+                } catch (MalformedURLException e) {
                     e.printStackTrace();
                 }
             }
@@ -121,16 +160,18 @@ public class BrowserSelector extends Utils
         {
             String browser = loadProps.getProperty("browser");
 
-            if (browser.equalsIgnoreCase("firefox"))
-            {
-                System.setProperty("webdriver.gecko.driver", "src\\test\\Resources\\BrowserDriver\\geckodriver.exe");
-                driver = new FirefoxDriver();
-            }
-            else if (browser.equalsIgnoreCase("chrome"))
+            if (browser.equalsIgnoreCase("chrome"))
             {
                 System.setProperty("webdriver.chrome.driver", "src\\test\\Resources\\BrowserDriver\\chromedriver.exe");
                 driver = new ChromeDriver();
             }
+
+            else if (browser.equalsIgnoreCase("firefox"))
+            {
+                System.setProperty("webdriver.gecko.driver", "src/test/Resources/BrowserDriver/geckodriver.exe");
+                driver = new FirefoxDriver();
+            }
+
             else if (browser.equalsIgnoreCase("ie"))
             {
                 System.setProperty("webdriver.ie.driver", "src\\test\\Resources\\BrowserDriver\\IEDriverServer.exe");

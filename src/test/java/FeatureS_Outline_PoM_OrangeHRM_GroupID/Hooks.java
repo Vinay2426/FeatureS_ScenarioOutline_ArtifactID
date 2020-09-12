@@ -39,8 +39,8 @@ public class Hooks extends BasePage
                 File sourcePath = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
                 //Building up the destination path for the screenshot to save
                 //Also make sure to create a folder 'screenshots' with in the cucumber-report folder
-                File destinationPath = new File(System.getProperty("user.dir")+"/target/Destination/screenshots/"+screenshotName);
-                //copy taken screenshot from source location to destination location
+                File destinationPath = new File(System.getProperty("user.dir")+"/target/Destination/screenshots"+screenshotName);
+                //copy taken screenshot from source location to destination location   "html:target/Destination"
                 copyFile(sourcePath, destinationPath);
                 scenario.embed(((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES), "image/png");
             }

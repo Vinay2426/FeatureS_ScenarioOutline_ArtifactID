@@ -17,8 +17,10 @@ public class HomePageResultPage extends Utils
     }
     public void verifyInvalidLogin(String login_message)
     {
+        //parameterised locator
         String text = driver.findElement(By.cssSelector("#spanMessage,"+login_message)).getText();
         System.out.println(text);
         Assert.assertEquals(login_message,text);
+
     }
 }

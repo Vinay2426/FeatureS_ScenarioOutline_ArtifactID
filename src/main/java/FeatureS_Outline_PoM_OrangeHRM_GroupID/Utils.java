@@ -246,7 +246,7 @@ public class Utils extends BasePage
         action.moveToElement(driver.findElement(by)).click().build().perform();
     }
 
-    //captureScreenShot when test case fails
+    //captureScreenShot when test case fails for selenium, NOT Cucumber
     public static void captureScreenShot(WebDriver driver, String screenShotName)
     {
         try
